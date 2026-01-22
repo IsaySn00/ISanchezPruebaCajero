@@ -2,6 +2,7 @@ package com.digis01.ISanchezPruebaCajero.Service;
 
 import com.digis01.ISanchezPruebaCajero.DAO.CuentaRepository;
 import com.digis01.ISanchezPruebaCajero.JPA.Result;
+import java.math.BigDecimal;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,8 +20,8 @@ public class CuentaService {
               
         try{
         
-            Long monto = cuentaRepository.getMontoCuentaUsuario(id);
-            result.object = monto / 100;
+            BigDecimal monto = cuentaRepository.getMontoCuentaUsuario(id);
+            result.object = monto;
             result.correct = true;
             
         }catch(Exception ex){

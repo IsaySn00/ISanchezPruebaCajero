@@ -1,6 +1,7 @@
 package com.digis01.ISanchezPruebaCajero;
 
 import com.digis01.ISanchezPruebaCajero.Service.CuentaService;
+import java.math.BigDecimal;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ class ISanchezPruebaCajeroApplicationTests {
         public void testMontoUsuario(){
             int id = 1;
             
-            long monto = (long) cuentaService.getMontoUsuario(id).object;
+            BigDecimal monto = (BigDecimal) cuentaService.getMontoUsuario(id).object;
             
             assertThat(monto).isNotNull();
                     

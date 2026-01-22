@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -20,7 +21,7 @@ public class Movimiento {
     private int idMovimiento;
     
     @Column(name = "montomovimiento")
-    private long montoMovimiento;
+    private BigDecimal montoMovimiento;
     
     @Column(name = "fechamovimiento")
     private Date fechaMovimiento;
@@ -41,11 +42,11 @@ public class Movimiento {
         this.idMovimiento = idMovimiento;
     }
 
-    public long getMontoMovimiento() {
+    public BigDecimal getMontoMovimiento() {
         return montoMovimiento;
     }
 
-    public void setMontoMovimiento(long montoMovimiento) {
+    public void setMontoMovimiento(BigDecimal montoMovimiento) {
         this.montoMovimiento = montoMovimiento;
     }
 
