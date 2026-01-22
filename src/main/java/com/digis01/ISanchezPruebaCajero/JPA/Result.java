@@ -1,0 +1,14 @@
+package com.digis01.ISanchezPruebaCajero.JPA;
+
+import java.util.List;
+
+
+public class Result {
+
+    public boolean correct;
+    public String errorMessage;
+    public Object object;
+    public List<Object> objects;
+    public int status;
+    public Exception ex;
+}
