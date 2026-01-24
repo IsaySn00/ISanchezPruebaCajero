@@ -5,10 +5,36 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedStoredProcedureQuery;
+import jakarta.persistence.ParameterMode;
+import jakarta.persistence.StoredProcedureParameter;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "cajero")
+@NamedStoredProcedureQuery(
+    name = "Cajero.retirarDinero",
+    procedureName = "RetirarDinero",
+    parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdUsuario", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdCajero",  type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pMonto",     type = BigDecimal.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pResultado", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje",   type = String.class)
+    }
+)
+@NamedStoredProcedureQuery(
+    name = "Cajero.llenarCajero",
+    procedureName = "LlenarCajero",
+    parameters = {
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdUsuario",      type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdCajero",       type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdDenominacion", type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pCantidad",       type = Integer.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje",        type = String.class)
+    }
+)
 public class Cajero {
 
     @Id

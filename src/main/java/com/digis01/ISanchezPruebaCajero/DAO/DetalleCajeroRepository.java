@@ -12,4 +12,5 @@ public interface DetalleCajeroRepository extends JpaRepository<DetalleCajero, In
     
     @Procedure(procedureName = "GetDetalleCajero") 
     List<DetalleCajero> getDetalleCajero(@Param("pIdCajero") int idCajero);
+
 }

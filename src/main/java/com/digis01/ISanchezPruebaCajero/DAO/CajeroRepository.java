@@ -20,5 +20,13 @@ public interface CajeroRepository extends JpaRepository<Cajero, Integer> {
             @Param("pIdCajero") int idCajero,
             @Param("pMonto") BigDecimal monto
     );
+    
+    @Procedure(procedureName = "LlenarCajero")
+    Map<String, Object> llenarCajero(
+            @Param("pIdUsuario") int idUsuario,
+            @Param("pIdCajero") int idCajero,
+            @Param("pIdDenominacion") int idDenominacion,
+            @Param("pCantidad") int cantidad
+    );
 
 }

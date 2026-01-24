@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.digis01.ISanchezPruebaCajero.DTO;
 
 import java.math.BigDecimal;
@@ -9,7 +5,7 @@ import java.math.BigDecimal;
 public class DetalleCajeroDTO {
 
     private Integer idDenominacion;
-    private Long cantidadDinero;
+    private BigDecimal cantidadDinero;
     private Integer idTipo;
     private Integer idCajero;
     private BigDecimal montoDenominacion;
@@ -22,11 +18,11 @@ public class DetalleCajeroDTO {
         this.idDenominacion = idDenominacion;
     }
 
-    public Long getCantidadDinero() {
+    public BigDecimal getCantidadDinero() {
         return cantidadDinero;
     }
 
-    public void setCantidadDinero(Long cantidadDinero) {
+    public void setCantidadDinero(BigDecimal cantidadDinero) {
         this.cantidadDinero = cantidadDinero;
     }
 
