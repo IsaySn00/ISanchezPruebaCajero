@@ -3,6 +3,7 @@ package com.digis01.ISanchezPruebaCajero.Service;
 import com.digis01.ISanchezPruebaCajero.DAO.CajeroRepository;
 import com.digis01.ISanchezPruebaCajero.DAO.DetalleCajeroRepository;
 import com.digis01.ISanchezPruebaCajero.DTO.DetalleCajeroDTO;
+import com.digis01.ISanchezPruebaCajero.JPA.Cajero;
 import com.digis01.ISanchezPruebaCajero.JPA.DetalleCajero;
 import com.digis01.ISanchezPruebaCajero.JPA.Result;
 import jakarta.transaction.Transactional;
@@ -88,6 +89,22 @@ public class CajeroService {
 
             result.correct = true;
             result.object = resp.get("pMensaje");
+
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+        }
+
+        return result;
+    }
+    
+    public Result obtenerCajeros() {
+        Result result = new Result();
+
+        try {
+            List<Cajero> cajeros = cajeroRepository.getCajeros();
+            result.object = new ArrayList<>(cajeros);
+            result.correct = true;
 
         } catch (Exception ex) {
             result.correct = false;

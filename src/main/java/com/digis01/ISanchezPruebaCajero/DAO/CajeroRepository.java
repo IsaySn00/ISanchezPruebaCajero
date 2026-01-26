@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CajeroRepository extends JpaRepository<Cajero, Integer> {
+public interface CajeroRepository extends JpaRepository<Cajero, Integer>, CajeroRepositoryCustom {
 
     @Procedure(procedureName = "GetMontoCajero", outputParameterName = "pTotalCajero")
     BigDecimal getMontoCajero(@Param("pIdCajero") int idCajero);

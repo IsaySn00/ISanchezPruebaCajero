@@ -35,6 +35,18 @@ import java.math.BigDecimal;
         @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje",        type = String.class)
     }
 )
+@NamedStoredProcedureQuery(
+    name = "Cajero.getCajeros",
+    procedureName = "GetCajeros",
+    resultClasses = Cajero.class,
+    parameters = {
+        @StoredProcedureParameter(
+            mode = ParameterMode.REF_CURSOR,
+            name = "pCursor",
+            type = void.class
+        )
+    }
+)
 public class Cajero {
 
     @Id
