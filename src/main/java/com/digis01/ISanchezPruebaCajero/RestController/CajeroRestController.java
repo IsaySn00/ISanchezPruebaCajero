@@ -7,6 +7,7 @@ import com.digis01.ISanchezPruebaCajero.Service.CajeroService;
 import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ public class CajeroRestController {
     @Autowired
     private CajeroService cajeroService;
 
+    @PreAuthorize("hasAuthority('ROLE_admin') or hasAuthority('ROLE_usuario')")
     @PostMapping("/retirar")
     public ResponseEntity RetirarDinero(@RequestBody RetiroDTO retiro) {
         Result result = new Result();
@@ -37,6 +39,7 @@ public class CajeroRestController {
         return ResponseEntity.status(result.status).body(result);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_admin')")
     @PostMapping("/llenar")
     public ResponseEntity llenarCajero(@RequestBody LlenarCajeroDTO dto) {
         Result result = new Result();
@@ -59,6 +62,7 @@ public class CajeroRestController {
         return ResponseEntity.status(result.status).body(result);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_admin') or hasAuthority('ROLE_usuario')")
     @GetMapping("/listar")
     public ResponseEntity listarCajeros() {
         Result result = new Result();
