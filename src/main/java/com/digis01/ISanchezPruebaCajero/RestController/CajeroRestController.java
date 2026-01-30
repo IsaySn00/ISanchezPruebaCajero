@@ -27,9 +27,13 @@ public class CajeroRestController {
         Result result = new Result();
 
         try {
-            result.object = cajeroService.RetirarDinero(retiro.getIdUsuario(), retiro.getIdCajero(), retiro.getMonto()).object;
+            Result resultSP = cajeroService.RetirarDinero(retiro.getIdUsuario(), retiro.getIdCajero(), retiro.getMonto());
+            
+            result.object = resultSP.object;
             result.correct = true;
             result.status = 201;
+            result.SpStatus = resultSP.SpStatus;
+            
 
         } catch (Exception ex) {
             result.correct = false;
@@ -45,12 +49,14 @@ public class CajeroRestController {
         Result result = new Result();
 
         try {
-            result.object = cajeroService.llenarCajero(
+            Result resultSP = cajeroService.llenarCajero(
                     dto.getIdUsuario(),
                     dto.getIdCajero(),
                     dto.getIdDenominacion(),
                     dto.getCantidad()
-            ).object;
+            );
+            result.object = resultSP.object;
+            result.SpStatus = resultSP.SpStatus;
             result.correct = true;
             result.status = 201;
 

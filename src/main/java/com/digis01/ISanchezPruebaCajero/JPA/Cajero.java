@@ -32,7 +32,9 @@ import java.math.BigDecimal;
         @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdCajero",       type = Integer.class),
         @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pIdDenominacion", type = Integer.class),
         @StoredProcedureParameter(mode = ParameterMode.IN,  name = "pCantidad",       type = Integer.class),
-        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje",        type = String.class)
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pMensaje",        type = String.class),
+        @StoredProcedureParameter(mode = ParameterMode.OUT, name = "pResultado",      type = String.class)
+
     }
 )
 @NamedStoredProcedureQuery(

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService {
 
-     private final CuentaRepository cuentaRepository;
+    private final CuentaRepository cuentaRepository;
 
     public CustomUserDetailsService(CuentaRepository cuentaRepository) {
         this.cuentaRepository = cuentaRepository;
@@ -18,16 +18,18 @@ public class CustomUserDetailsService {
 
     public UserDetails authenticate(String numeroCuenta, String nip) {
 
-        Map<String, Object> resp =
-                cuentaRepository.loginCuenta(numeroCuenta, nip);
+        Map<String, Object> resp
+                = cuentaRepository.loginCuenta(numeroCuenta, nip);
 
         if (resp.get("pRol") == null) {
             throw new BadCredentialsException("Credenciales inválidas");
         }
 
         String rol = resp.get("pRol").toString();
-
+        Integer idUsuario = ((Number) resp.get("pIdUsuario")).intValue();
+        
         return new UsuarioSecurity(
+                idUsuario,
                 numeroCuenta,
                 nip,
                 rol

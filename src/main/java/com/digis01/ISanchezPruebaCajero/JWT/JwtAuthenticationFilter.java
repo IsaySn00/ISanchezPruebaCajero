@@ -1,5 +1,6 @@
 package com.digis01.ISanchezPruebaCajero.JWT;
 
+import com.digis01.ISanchezPruebaCajero.Service.JwtBlacklistService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -11,16 +12,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+@Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final String SECRET = "CjntvvFoDwVAHfVJvMM0BrVtwSGrLmwOfF0HzCjc8Yt";
+    private final JwtBlacklistService jwtBlacklistService;
+    private final JwtService jwtService;
 
+    public JwtAuthenticationFilter(
+            JwtBlacklistService jwtBlacklistService,
+            JwtService jwtService) {
+        this.jwtBlacklistService = jwtBlacklistService;
+        this.jwtService = jwtService;
+    }
+    private final String SECRET = "CjntvvFoDwVAHfVJvMM0BrVtwSGrLmwOfF0HzCjc8Yt";
 
     @Override
     protected void doFilterInternal(
@@ -38,6 +50,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = header.replace("Bearer ", "");
 
+        if (jwtBlacklistService.isBlacklisted(token)) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            return;
+        }
+
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(Keys.hmacShaKeyFor(SECRET.getBytes()))
                 .build()
@@ -48,15 +65,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        List<Map<String, String>> roles =
-                (List<Map<String, String>>) claims.get("roles");
+        List<Map<String, String>> roles
+                = (List<Map<String, String>>) claims.get("roles");
 
         for (Map<String, String> role : roles) {
             authorities.add(new SimpleGrantedAuthority(role.get("authority")));
         }
 
-        UsernamePasswordAuthenticationToken authentication =
-                new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken authentication
+                = new UsernamePasswordAuthenticationToken(
                         username,
                         null,
                         authorities

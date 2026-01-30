@@ -1,5 +1,6 @@
 package com.digis01.ISanchezPruebaCajero.JWT;
 
+import com.digis01.ISanchezPruebaCajero.Security.UsuarioSecurity;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -13,8 +14,12 @@ public class JwtService {
     private final String SECRET = "CjntvvFoDwVAHfVJvMM0BrVtwSGrLmwOfF0HzCjc8Yt";
 
     public String generateToken(Authentication auth) {
+
+        UsuarioSecurity user = (UsuarioSecurity) auth.getPrincipal();
+
         return Jwts.builder()
                 .setSubject(auth.getName())
+                .claim("idUsuario", user.getIdUsuario())
                 .claim("roles", auth.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))

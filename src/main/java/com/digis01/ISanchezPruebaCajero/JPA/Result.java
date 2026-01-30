@@ -10,4 +10,5 @@ public class Result {
     public Object object;
     public List<Object> objects;
     public int status;
+    public Object SpStatus;
 }

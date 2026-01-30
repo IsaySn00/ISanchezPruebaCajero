@@ -66,6 +66,7 @@ public class CajeroService {
         try {
             Map<String, Object> resp = cajeroRepository.retirarDinero(idUsuario, idCajero, monto);
             result.object = resp.get("pMensaje");
+            result.SpStatus = resp.get("pResultado");
 
         } catch (Exception ex) {
             result.correct = false;
@@ -89,6 +90,7 @@ public class CajeroService {
 
             result.correct = true;
             result.object = resp.get("pMensaje");
+            result.SpStatus = resp.get("pResultado");
 
         } catch (Exception ex) {
             result.correct = false;
@@ -97,7 +99,7 @@ public class CajeroService {
 
         return result;
     }
-    
+
     public Result obtenerCajeros() {
         Result result = new Result();
 
